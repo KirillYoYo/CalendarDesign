@@ -1,0 +1,138 @@
+.calendar-comp {
+	.calendar {
+		max-width: 770px;
+		margin: 0 auto;
+		position: relative;
+		.arrows {
+			.calendar-comp__left,.calendar-comp__right {
+				position: absolute;
+				top: 0;
+				background: none;
+				border: 0px;
+				border-radius: 0px;
+				width: 25px;
+				height: 25px;
+				outline: none;
+
+				&:after,&:before {
+					content: '';
+					width: 14px;
+					height: 1px;
+					border: 1px solid;
+					border-color: #000;
+					position: absolute;
+				}
+
+				&:after {
+					transform: rotate(45deg);
+					margin: 4px 0px 0px 0px;
+				}
+				&:before {
+					margin-top: -5px;
+					transform: rotate(135deg);
+				}
+
+				&:hover:after {
+					border-color: rgba(4, 227, 24, 0.95);
+				}
+				&:hover:before {
+					border-color: rgba(4, 227, 24, 0.95);
+				}
+			}
+			.calendar-comp__left {
+				left: 0;
+			}
+			.calendar-comp__right {
+				right: 0;
+				&:after {
+					transform: rotate(135deg);
+				}
+				&:before {
+					transform: rotate(45deg);
+				}
+				&:hover {
+					&:after {
+						border-color: #00f;
+					}
+					&:before {
+						border-color: #00f;
+					}
+
+				}
+			}
+			position: absolute;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+		}
+		.animate-block {
+			.calendar-comp__mounth {
+				display: flex;
+				height: 34px;
+				text-align: center;
+				justify-content: center;
+				align-items: center;
+			}
+			.calendar-comp__dayes {
+				.dayes__dayes-names {
+					box-shadow: inset 0px 0px 0px 2px black;
+					display: flex;
+					flex-direction: row;
+
+					.dayes-names_block {
+						flex-basis: 14.28571428%;
+						justify-content: center;
+						align-items: center;
+						height: 30px;
+						list-style: none;
+						display: flex;
+						box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,1);
+						box-sizing: border-box;
+
+					}
+				}
+				.dayes__dayes-numbers {
+					display: flex;
+					flex-wrap: wrap;
+					box-shadow: inset 0px 0px 0px 2px black;
+					margin-top: -2px;
+
+					.dayes-numbers__day {
+						flex-basis: 14.28571428%;
+						//margin-right: 1px;
+						//margin-bottom: 1px;
+						box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,1);
+						box-sizing: border-box;
+						text-align: center;
+						padding: 10px 0px;
+						cursor: pointer;
+
+						&:first-child {
+							border-left: 1px solid #000;
+						}
+						&:last-child {
+							border-right: 1px solid #000;
+						}
+
+						&.next-month {
+							border-bottom: 1px solid #000;
+						}
+						&.prev-month {
+							border-top: 1px solid #000;
+						}
+
+
+						&:hover {
+							background: #cc381e !important;
+							color: #fff;
+						}
+						&.active {
+							background: #cc381e !important;;
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+	}
+}

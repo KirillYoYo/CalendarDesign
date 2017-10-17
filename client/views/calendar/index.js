@@ -6,12 +6,10 @@ export default class Calendar extends React.Component {
 
 	constructor() {
 		super();
+		this.state = {
+			flag: null
+		}
 	}
-
-	componentDidMount () {
-
-	}
-
 
 	render() {
 		return (

@@ -1,10 +1,12 @@
 .calendar-comp {
+	overflow-x: hidden;
 	.calendar {
 		max-width: 770px;
 		margin: 0 auto;
 		position: relative;
 		.arrows {
 			.calendar-comp__left,.calendar-comp__right {
+				z-index: 10;
 				position: absolute;
 				top: 0;
 				background: none;
@@ -135,4 +137,24 @@
 			}
 		}
 	}
+}
+
+
+/*asnimation*/
+.example-enter {
+	opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+	opacity: 1;
+}
+
+.example-leave.example-leave-active {
+	opacity: 0.01;
+	transition: opacity 300ms ease-in;
 }

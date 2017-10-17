@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './style.scss';
-import {Row, Col, Grid, Button} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 import getMonthName from '../../helpres'
+import Anim from '../Anim'
 
 export default class CalendarComp extends React.Component {
 
@@ -12,7 +13,8 @@ export default class CalendarComp extends React.Component {
             curMonth: d.getMonth(),
             curYear: d.getFullYear(),
             activeDay: null,
-            daysArr: []
+            daysArr: [],
+            animSide: null
         }
     }
 
@@ -78,18 +80,26 @@ export default class CalendarComp extends React.Component {
     }
     prevMonth () {
         this.setState({
-            curMonth: this.state.curMonth -1
+            //curMonth: this.state.curMonth -1,
+            animSide: 'left'
         }, () => {
-            this.getDayesNumbers(this.state.curMonth)
-            console.log("current month ", getMonthName(this.state.curMonth))
+            this.getDayesNumbers(this.state.curMonth -1)
+            console.log("current month ", getMonthName(this.state.curMonth -1))
+            setTimeout(() => {
+                this.updateMonthName(-1)
+            }, 200)
         })
     }
     nextMonth () {
         this.setState({
-            curMonth: this.state.curMonth +1
+            //curMonth: this.state.curMonth +1,
+            animSide: 'right'
         }, () => {
-            this.getDayesNumbers(this.state.curMonth)
-            console.log("current month ", getMonthName(this.state.curMonth))
+            this.getDayesNumbers(this.state.curMonth +1)
+            setTimeout(() => {
+                this.updateMonthName(+1)
+            }, 200)
+            console.log("current month ", getMonthName(this.state.curMonth +1))
         })
 
     }
@@ -107,6 +117,12 @@ export default class CalendarComp extends React.Component {
         })
     }
 
+    updateMonthName (num) {
+        this.setState({
+            curMonth: this.state.curMonth + num,
+        })
+    }
+
 
     render() {
         const days_names = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс',];
@@ -118,46 +134,49 @@ export default class CalendarComp extends React.Component {
                         <Button onClick={::this.prevMonth} className='calendar-comp__left' />
                         <Button onClick={::this.nextMonth} className='calendar-comp__right' />
                     </div>
-                    <div className="animate-block">
-                        <div className="calendar-comp__mounth">
-                            <span>{getMonthName(this.state.curMonth)} </span>
-                            <span style={{marginLeft: '10px'}}>{this.state.curYear}</span>
-                        </div>
-                        <div className="calendar-comp__dayes">
-                            <div className="dayes__dayes-names">
-                                {
-                                    days_names.map((item, i) => {
-                                        return (
-                                            <div className={`dayes-names_block`} key={i}>
-                                                {item}
-                                            </div>
-                                        )
-                                    })
-                                }
+                    <Anim animSide={this.state.animSide}>
+                        <div className="animate-block">
+                            <div className="calendar-comp__mounth">
+                                <span>{getMonthName(this.state.curMonth)} </span>
+                                <span style={{marginLeft: '10px'}}>{this.state.curYear}</span>
                             </div>
-                            <div className="dayes__dayes-numbers">
-                                {
-                                    this.state.daysArr.map( (day, i) => {
-                                        return (
-                                            <div
-                                                className={
-                                                    `
-                                                        dayes-numbers__day ${day.active ? 'active' : ''}
+                            <div className="calendar-comp__dayes">
+                                <div className="dayes__dayes-names">
+                                    {
+                                        days_names.map((item, i) => {
+                                            return (
+                                                <div className={`dayes-names_block`} key={i}>
+                                                    {item}
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                <div className='dayes__dayes-numbers'>
+                                    {
+                                        this.state.daysArr.map( (day, i) => {
+                                            return (
+                                                <div
+                                                    className={
+                                                        `dayes-numbers__day ${day.active ? 'active' : ''}
                                                         ${day.isNext ? 'next-month' : null}
-                                                        ${day.isPrev ? 'prev-month' : null}
-                                                    `
-                                                } key={i}
-                                                style={{background: day.color}}
-                                                onClick={this.dayClickHandler.bind(this, i, day.date)}
-                                            >
-                                                {day.date.getDate()}
-                                            </div>
-                                        )
-                                    })
-                                }
+                                                        ${day.isPrev ? 'prev-month' : null}`
+                                                    }
+                                                    key={i}
+                                                    style={{background: day.color}}
+                                                    onClick={this.dayClickHandler.bind(this, i, day.date)}
+                                                >
+                                                    {day.date.getDate()}
+                                                </div>
+                                            )
+                                        })
+                                    }
+
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Anim>
+
 				</div>
 			</div>
         )

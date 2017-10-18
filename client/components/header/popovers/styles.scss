@@ -1,0 +1,61 @@
+.add-event-popover,.find-event-popover {
+	.ant-popover-arrow {
+		top: 1px !important;
+		border-bottom-color: #fff !important;
+		border-width: 11px;
+	}
+}
+.add-event-popover {
+
+	.add-event__content {
+		position: relative;
+		width: 380px;
+		padding: 18px 30px 5px 0px;
+		box-sizing: border-box;
+
+		.add-event__content__input {
+			margin-bottom: 10px;
+		}
+
+		.close {
+			position: absolute;
+			right: -6px;
+			top: 0px;
+			font-size: 16px;
+		}
+	}
+}
+
+.find-event-popover {
+
+	.ant-popover-inner-content {
+		padding: 8px !important;
+
+		.find-event-popover__content {
+			width: 240px;
+
+				.inner {
+					max-height: 380px;
+					overflow-y: auto;
+
+					.find-event-popover__event {
+						padding: 4px;
+
+						&:hover {
+							background: #199fff;
+							color: #fff;
+							cursor: pointer;
+						}
+
+						.title {
+							font-size: 16px;
+							font-weight: 600;
+						}
+						.date {
+							font-size: 13px;
+						}
+					}
+				}
+			}
+		}
+}

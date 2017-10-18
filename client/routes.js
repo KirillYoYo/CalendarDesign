@@ -17,7 +17,7 @@ export default (props) => (
 					<Route path='/' component={App} />
 				</Switch>
 			</BrowserRouter>
-			{/*<DevTools/>*/}
+			<DevTools/>
 		</div>
 	</Provider>
 );

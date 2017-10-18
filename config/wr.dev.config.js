@@ -22,6 +22,11 @@ module.exports = {
 				test: /.jsx?$/,
 				loader: 'babel-loader',
 				exclude: /node_modules/,
+                options: {
+                    plugins: [
+                        //['import', { libraryName: "antd", style: true }]
+                    ]
+                },
 			},
 			{
 				test: /\.css$/,
@@ -29,20 +34,18 @@ module.exports = {
 					'style-loader',
 					{
 						loader: 'css-loader',
-						options: {
-							modules: true,
-							importLoaders: 1,
-							localIdentName: "[local]__[hash:base64:5]",
-							minimize: false
-						}
 					},
 				]
 			},
 			{
 				test: /\.scss$/,
 				loaders: ['style-loader', 'css-loader', 'sass-loader']
-			}
-		]
+			},
+            {
+                test: /\.less$/,
+                loaders: ['style-loader', 'css-loader' , "less-loader"]
+            }
+		],
 	},
 	devServer: {
 		publicPath: "http://127.0.0.1:7700",

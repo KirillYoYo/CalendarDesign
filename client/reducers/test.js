@@ -8,7 +8,7 @@ const initialState = {
 	banks: []
 };
 
-export default function menu(state = initialState, action = {}) {
+export default function test(state = initialState, action = {}) {
 	switch (action.type) {
 		case TEST_SUCCESS:
 			return {

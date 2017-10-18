@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "antd": "^2.13.6",
     "axios": "^0.16.2",
     "express": "^4.16.1",
     "path": "^0.12.7",
@@ -25,12 +26,15 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.6.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.7",
     "html-webpack-plugin": "^2.30.1",
+    "less": "^3.0.0-alpha.3",
+    "less-loader": "^4.0.5",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "precss": "^2.0.0",
@@ -48,13 +52,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KirillYoYo/CalendarPr.git"
+    "url": "git+https://github.com/KirillYoYo/CalendarDesign.git"
   },
   "author": "I am",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KirillYoYo/CalendarPr/issues"
+    "url": "https://github.com/KirillYoYo/CalendarDesign/issues"
   },
-  "homepage": "https://github.com/KirillYoYo/CalendarPr#readme",
+  "homepage": "https://github.com/KirillYoYo/CalendarDesign#readme",
   "description": ""
 }

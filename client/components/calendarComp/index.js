@@ -4,7 +4,12 @@ import {Button} from 'react-bootstrap'
 import getMonthName from '../../helpres'
 import Anim from '../Anim'
 
-export default class CalendarComp extends React.Component {
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {startTest} from '../../actions/test';
+import {getCalendarNumbers} from '../../actions/calendar';
+
+class CalendarComp extends React.Component {
 
     constructor() {
         super();
@@ -19,6 +24,7 @@ export default class CalendarComp extends React.Component {
     }
 
     componentDidMount() {
+        this.props.getCalendarNumbers();
         this.getDayesNumbers(this.state.curMonth)
     }
 
@@ -126,6 +132,7 @@ export default class CalendarComp extends React.Component {
 
     render() {
         const days_names = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс',];
+        console.log(this.props.calendar);
 
         return (
 			<div className="calendar-comp">
@@ -154,7 +161,7 @@ export default class CalendarComp extends React.Component {
                                 </div>
                                 <div className='dayes__dayes-numbers'>
                                     {
-                                        this.state.daysArr.map( (day, i) => {
+                                        this.props.calendar.calendarNumbers && this.props.calendar.calendarNumbers.map( (day, i) => {
                                             return (
                                                 <div
                                                     className={
@@ -182,3 +189,18 @@ export default class CalendarComp extends React.Component {
         )
     }
 }
+
+function mapStateToProps(state)  {
+    return {
+        calendar: state.calendar
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        startTest: bindActionCreators(startTest, dispatch),
+        getCalendarNumbers: bindActionCreators(getCalendarNumbers, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarComp);

@@ -16,9 +16,6 @@ export function* fetchTest() {
 	}
 }
 export function* fetchCalendar(action) {
-	console.log('fetchCalendar');
-	console.log(action);
-	console.log('`');
     try {
         const calendar = yield call(getCalendar, action.data);
         yield put({type: 'GET_CALENDAR_SUCCESS', payload: calendar});

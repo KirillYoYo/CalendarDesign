@@ -8,6 +8,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {startTest} from '../../actions/test';
 import {getCalendarNumbers} from '../../actions/calendar';
+import RenderCalendar from './renderCalendar'
 
 class CalendarComp extends React.Component {
 
@@ -85,6 +86,7 @@ class CalendarComp extends React.Component {
         })
     }
     prevMonth () {
+        this.props.getCalendarNumbers(this.state.curMonth -1);
         this.setState({
             //curMonth: this.state.curMonth -1,
             animSide: 'left'
@@ -97,6 +99,7 @@ class CalendarComp extends React.Component {
         })
     }
     nextMonth () {
+        this.props.getCalendarNumbers(this.state.curMonth +1);
         this.setState({
             //curMonth: this.state.curMonth +1,
             animSide: 'right'
@@ -132,7 +135,6 @@ class CalendarComp extends React.Component {
 
     render() {
         const days_names = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс',];
-        console.log(this.props.calendar);
 
         return (
 			<div className="calendar-comp">
@@ -159,26 +161,26 @@ class CalendarComp extends React.Component {
                                         })
                                     }
                                 </div>
-                                <div className='dayes__dayes-numbers'>
+                                <div className=''>
                                     {
-                                        this.props.calendar.calendarNumbers && this.props.calendar.calendarNumbers.map( (day, i) => {
-                                            return (
-                                                <div
-                                                    className={
-                                                        `dayes-numbers__day ${day.active ? 'active' : ''}
-                                                        ${day.isNext ? 'next-month' : null}
-                                                        ${day.isPrev ? 'prev-month' : null}`
-                                                    }
-                                                    key={i}
-                                                    style={{background: day.color}}
-                                                    onClick={this.dayClickHandler.bind(this, i, day.date)}
-                                                >
-                                                    {day.date.getDate()}
-                                                </div>
-                                            )
-                                        })
+                                        // this.props.calendar.calendarNumbers && this.props.calendar.calendarNumbers.map( (day, i) => {
+                                        //     return (
+                                        //         <div
+                                        //             className={
+                                        //                 `dayes-numbers__day ${day.active ? 'active' : ''}
+                                        //                 ${day.isNext ? 'next-month' : null}
+                                        //                 ${day.isPrev ? 'prev-month' : null}`
+                                        //             }
+                                        //             key={i}
+                                        //             style={{background: day.color}}
+                                        //             onClick={this.dayClickHandler.bind(this, i, day.date)}
+                                        //         >
+                                        //             {day.date.getDate()}
+                                        //         </div>
+                                        //     )
+                                        // })
                                     }
-
+                                    <RenderCalendar calendarNumbers = {this.props.calendar.calendarNumbers} />
                                 </div>
                             </div>
                         </div>

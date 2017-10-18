@@ -11,7 +11,6 @@ const initialState = {
 export default function calendar(state = initialState, action = {}) {
     switch (action.type) {
         case GET_CALENDAR_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 calendarNumbers: action.payload

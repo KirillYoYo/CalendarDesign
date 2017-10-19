@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './style.scss';
-import {Button} from 'react-bootstrap'
-import getMonthName from '../../helpres'
+import {Button, Icon} from 'antd'
+import {getMonthName} from '../../helpres'
 import Anim from '../Anim'
 
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {startTest} from '../../actions/test';
 import {getCalendarNumbers} from '../../actions/calendar';
+
 import RenderCalendar from './renderCalendar'
 
 class CalendarComp extends React.Component {
@@ -26,7 +26,6 @@ class CalendarComp extends React.Component {
 
     componentDidMount() {
         this.props.getCalendarNumbers();
-        this.getDayesNumbers(this.state.curMonth)
     }
 
     updateYear (year) {
@@ -37,76 +36,26 @@ class CalendarComp extends React.Component {
             : null
     }
 
-    getDayesNumbers(month) {
-        var dayes_arr = [];
-
-        const now_date = new Date
-        const now_y =  now_date.getFullYear();
-        var now_m =  now_date.getMonth();
-
-        month ?  now_m = month : null;
-
-        /* 33, а не 32 - для safari*/
-        const dayes_in_now_m = 33 - new Date(now_y, now_m, 33).getDate();
-
-        const first_day = new Date(now_y, now_m, 1, 0, 0, 0, 0);
-
-        /*Prev month*/
-        if (first_day.getDay() !== 1) {
-            var first_day_cnt = first_day.getDay();
-            first_day_cnt === 0 ? first_day_cnt = 7 : null;
-            for (let i = (first_day_cnt - 2); i >= 0; i-- ) {
-                const d = new Date(now_y, now_m + 1, -i);
-                dayes_arr.push({date: d, isPrev: true, color: '#0f0'})
-            }
-        }
-
-        /*now month*/
-        for (let i = 1; i <= dayes_in_now_m; i++) {
-            const d = new Date(now_y, now_m, i, 0 , 0 ,0);
-            dayes_arr.push({date: d,  color: 'none'})
-        }
-        const last_el_year = dayes_arr[dayes_arr.length -1].date.getFullYear()
-        if (last_el_year !== now_y) {
-            this.updateYear(last_el_year)
-        }
-
-        const last_day = dayes_arr[dayes_arr.length -1];
-        var last_day_cnt = last_day.date.getDay();
-        last_day_cnt === 0 ? last_day_cnt = 7 : null;
-
-        /*Next month*/
-        for (let i = 1; i < (7 - (last_day_cnt -1)); i++) {
-            const d = new Date(now_y, now_m + 1, i);
-            dayes_arr.push({date: d, isNext: true,  color: '#00f'})
-        }
-
-        this.setState({
-            daysArr: dayes_arr
-        })
-    }
     prevMonth () {
-        this.props.getCalendarNumbers(this.state.curMonth -1);
         this.setState({
             //curMonth: this.state.curMonth -1,
             animSide: 'left'
         }, () => {
-            this.getDayesNumbers(this.state.curMonth -1)
             console.log("current month ", getMonthName(this.state.curMonth -1))
             setTimeout(() => {
                 this.updateMonthName(-1)
+                this.props.getCalendarNumbers(this.state.curMonth);
             }, 200)
         })
     }
     nextMonth () {
-        this.props.getCalendarNumbers(this.state.curMonth +1);
         this.setState({
             //curMonth: this.state.curMonth +1,
             animSide: 'right'
         }, () => {
-            this.getDayesNumbers(this.state.curMonth +1)
             setTimeout(() => {
                 this.updateMonthName(+1)
+                this.props.getCalendarNumbers(this.state.curMonth);
             }, 200)
             console.log("current month ", getMonthName(this.state.curMonth +1))
         })
@@ -126,62 +75,43 @@ class CalendarComp extends React.Component {
         })
     }
 
-    updateMonthName (num) {
+    updateMonthName (num, month) {
+        !month ?
         this.setState({
             curMonth: this.state.curMonth + num,
         })
+            :
+            this.setState({
+                curMonth: month
+            })
     }
 
 
     render() {
-        const days_names = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс',];
 
         return (
 			<div className="calendar-comp">
 				<div className="calendar">
-                    <div className="arrows">
-                        <Button onClick={::this.prevMonth} className='calendar-comp__left' />
-                        <Button onClick={::this.nextMonth} className='calendar-comp__right' />
+                    <div className="calendar-navigate">
+                        <Button onClick={::this.prevMonth} className='calendar-comp__left' >
+                            <Icon type="caret-left" />
+                        </Button>
+                        <div className="calendar-comp__mounth">
+                            <span>{getMonthName(this.state.curMonth)} </span>
+                            <span style={{marginLeft: '10px'}}>{this.state.curYear}</span>
+                        </div>
+                        <Button onClick={::this.nextMonth} className='calendar-comp__right' >
+                            <Icon type="caret-right" />
+                        </Button>
                     </div>
                     <Anim animSide={this.state.animSide}>
                         <div className="animate-block">
-                            <div className="calendar-comp__mounth">
-                                <span>{getMonthName(this.state.curMonth)} </span>
-                                <span style={{marginLeft: '10px'}}>{this.state.curYear}</span>
-                            </div>
+
                             <div className="calendar-comp__dayes">
-                                <div className="dayes__dayes-names">
-                                    {
-                                        days_names.map((item, i) => {
-                                            return (
-                                                <div className={`dayes-names_block`} key={i}>
-                                                    {item}
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <div className=''>
-                                    {
-                                        // this.props.calendar.calendarNumbers && this.props.calendar.calendarNumbers.map( (day, i) => {
-                                        //     return (
-                                        //         <div
-                                        //             className={
-                                        //                 `dayes-numbers__day ${day.active ? 'active' : ''}
-                                        //                 ${day.isNext ? 'next-month' : null}
-                                        //                 ${day.isPrev ? 'prev-month' : null}`
-                                        //             }
-                                        //             key={i}
-                                        //             style={{background: day.color}}
-                                        //             onClick={this.dayClickHandler.bind(this, i, day.date)}
-                                        //         >
-                                        //             {day.date.getDate()}
-                                        //         </div>
-                                        //     )
-                                        // })
-                                    }
-                                    <RenderCalendar calendarNumbers = {this.props.calendar.calendarNumbers} />
-                                </div>
+                                <RenderCalendar
+                                    calendarNumbers = {this.props.calendar.calendarNumbers}
+                                    events = {this.props.calendar.events}
+                                />
                             </div>
                         </div>
                     </Anim>
@@ -200,7 +130,6 @@ function mapStateToProps(state)  {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        startTest: bindActionCreators(startTest, dispatch),
         getCalendarNumbers: bindActionCreators(getCalendarNumbers, dispatch),
     };
 };

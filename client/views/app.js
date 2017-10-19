@@ -16,7 +16,6 @@ class App extends React.Component {
 						<CalendarComp />
 					</Calendar>
 				</div>
-				<Footer/>
 			</div>
 		)
 	}

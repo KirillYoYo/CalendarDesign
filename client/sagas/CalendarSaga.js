@@ -18,7 +18,7 @@ function getCalendar(month) {
         var first_day_cnt = first_day.getDay();
         first_day_cnt === 0 ? first_day_cnt = 7 : null;
         for (let i = (first_day_cnt - 2); i >= 0; i-- ) {
-            const d = new Date(now_y, now_m + 1, -i);
+            const d = new Date(now_y, now_m, -i);
             dayes_arr.push({date: d, isPrev: true, color: '#0f0'})
         }
     }
@@ -41,6 +41,12 @@ function getCalendar(month) {
     for (let i = 1; i < (7 - (last_day_cnt -1)); i++) {
         const d = new Date(now_y, now_m + 1, i);
         dayes_arr.push({date: d, isNext: true,  color: '#00f'})
+    }
+
+    /*add days names*/
+    const days_names = ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье',];
+    for (let i = 0; i < 8; i++) {
+        dayes_arr[i].dayName = days_names[i]
     }
 
 

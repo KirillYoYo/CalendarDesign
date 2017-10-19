@@ -18,6 +18,7 @@ body{ -webkit-backface-visibility: hidden;  -webkit-font-smoothing: antialiased;
 			flex-grow: 1;
 			min-width: 480px;
 			max-width: 1024px;
+			width: 100%;
 			display: flex;
 			margin: 0 auto;
 			padding-top: 20px;

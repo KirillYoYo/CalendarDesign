@@ -23,6 +23,16 @@ export function* fetchCalendar(action) {
         yield put({type: 'GET_CALENDAR_FAILED', error});
     }
 }
+export function* fetchAddEvent(action) {
+    try {
+        yield put({type: 'ADD_EVENT_SUCCESS', payload: action.data});
+    } catch(error) {
+        yield put({type: 'ADD_EVENT_SUCCESS', error});
+    }
+}
+
+
+
 
 function* watchTest() {
 	yield takeEvery("TEST", fetchTest);
@@ -30,10 +40,14 @@ function* watchTest() {
 function* watchCalendar() {
     yield takeEvery("GET_CALENDAR", fetchCalendar);
 }
+function* watchAddEvent() {
+    yield takeEvery("ADD_EVENT", fetchAddEvent);
+}
 
 export default function* rootSaga() {
 	yield all([
 		watchTest(),
         watchCalendar(),
+        watchAddEvent(),
 	])
 }

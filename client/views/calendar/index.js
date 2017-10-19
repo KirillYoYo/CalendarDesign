@@ -14,13 +14,7 @@ export default class Calendar extends React.Component {
 	render() {
 		return (
 			<div className='calendar-page'>
-				<Grid>
-					<Row>
-						<Col xs={12} md={12} >
-							{this.props.children}
-						</Col>
-					</Row>
-				</Grid>
+                {this.props.children}
 			</div>
 		);
 	}

@@ -1,4 +1,4 @@
-const getMonthName = function (num) {
+function  getMonthName (num) {
     if (num < 0) {
         num = 11 + num
     }
@@ -40,6 +40,47 @@ const getMonthName = function (num) {
             return 'Декабрь';
             break;
     }
+};
+
+function getMonthNum (string) {
+    const str = string.toLowerCase();
+    if (str.includes('янв')) {
+        return 0;
+    }
+    if (str.includes('фев')) {
+        return 1;
+    }
+    if (str.includes('мар')) {
+        return 2;
+    }
+    if (str.includes('апр')) {
+        return 3;
+    }
+    if (str.includes('май')) {
+        return 4;
+    }
+    if (str.includes('июн')) {
+        return 5;
+    }
+    if (str.includes('июл')) {
+        return 6;
+    }
+    if (str.includes('авг')) {
+        return 7;
+    }
+    if (str.includes('сен')) {
+        return 8;
+    }
+    if (str.includes('окт')) {
+        return 9;
+    }
+    if (str.includes('ноя')) {
+        return 10;
+    }
+    if (str.includes('дек')) {
+        return 11;
+    }
+    return false
 }
 
-module.exports = getMonthName
+export {getMonthName, getMonthNum};

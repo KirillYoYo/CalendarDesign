@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Button, Input, Icon, Popover } from 'antd';
-import styles from './styles.scss'
+import styles from './style.scss'
 
 class FindEvent extends Component {
 

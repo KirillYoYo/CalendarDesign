@@ -43,6 +43,9 @@ function  getMonthName (num) {
 };
 
 function getMonthNum (string) {
+    if (typeof(parseInt(string)) === 'number') {
+    	return string
+    }
     const str = string.toLowerCase();
     if (str.includes('янв')) {
         return 0;

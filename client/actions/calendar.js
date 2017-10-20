@@ -9,6 +9,9 @@ export const ADD_EVENT_SUCCESS = 'ADD_EVENT_SUCCESS';
 export const GET_EVENTS_BY_MONTH = 'GET_EVENTS_BY_MONTH';
 export const GET_EVENTS_BY_MONTH_SUCCESS = 'GET_EVENTS_BY_MONTH_SUCCESS';
 
+export const DELETE_EVENT = 'DELETE_EVENT';
+
+
 
 export function getCalendarNumbers(month) {
     return {
@@ -28,5 +31,12 @@ export function getEventsByMonth(month) {
     return {
         type: GET_EVENTS_BY_MONTH,
         data: month
+    }
+}
+
+export function deleteEvent (date) {
+    return {
+	    type: DELETE_EVENT,
+	    data: date
     }
 }

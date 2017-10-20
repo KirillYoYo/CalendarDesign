@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.scss';
 import {Button, Icon} from 'antd'
 import {getMonthName} from '../../helpres'
-import Anim from '../Anim'
+//import Anim from '../Anim'
 
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -25,6 +25,7 @@ class CalendarComp extends React.Component {
     }
 
     componentDidMount() {
+        console.log('DID MOUNT')
         this.props.getCalendarNumbers();
     }
 
@@ -38,28 +39,28 @@ class CalendarComp extends React.Component {
 
     prevMonth () {
         this.setState({
-            //curMonth: this.state.curMonth -1,
+            curMonth: this.state.curMonth -1,
             animSide: 'left'
         }, () => {
-            console.log("current month ", getMonthName(this.state.curMonth -1))
             setTimeout(() => {
-                this.updateMonthName(-1)
                 this.props.getCalendarNumbers(this.state.curMonth);
             }, 200)
         })
     }
     nextMonth () {
         this.setState({
-            //curMonth: this.state.curMonth +1,
+            curMonth: this.state.curMonth +1,
             animSide: 'right'
         }, () => {
             setTimeout(() => {
-                this.updateMonthName(+1)
                 this.props.getCalendarNumbers(this.state.curMonth);
             }, 200)
-            console.log("current month ", getMonthName(this.state.curMonth +1))
         })
 
+    }
+	findToday() {
+        console.log('findToday')
+		this.props.getCalendarNumbers();
     }
 
     dayClickHandler (num, date) {
@@ -75,18 +76,6 @@ class CalendarComp extends React.Component {
         })
     }
 
-    updateMonthName (num, month) {
-        !month ?
-        this.setState({
-            curMonth: this.state.curMonth + num,
-        })
-            :
-            this.setState({
-                curMonth: month
-            })
-    }
-
-
     render() {
 
         return (
@@ -97,24 +86,28 @@ class CalendarComp extends React.Component {
                             <Icon type="caret-left" />
                         </Button>
                         <div className="calendar-comp__mounth">
-                            <span>{getMonthName(this.state.curMonth)} </span>
+                            <span>{(() => {return this.props.calendar.calendarNumbers && getMonthName(this.props.calendar.calendarNumbers[15].date.getMonth())})()} </span>
                             <span style={{marginLeft: '10px'}}>{this.state.curYear}</span>
                         </div>
                         <Button onClick={::this.nextMonth} className='calendar-comp__right' >
                             <Icon type="caret-right" />
                         </Button>
+                        <Button onClick={::this.findToday} className='calendar-comp__today' >
+                            Сегодня
+                        </Button>
                     </div>
-                    <Anim animSide={this.state.animSide}>
-                        <div className="animate-block">
+                    <div className="animate-block">
 
-                            <div className="calendar-comp__dayes">
-                                <RenderCalendar
-                                    calendarNumbers = {this.props.calendar.calendarNumbers}
-                                    events = {this.props.calendar.events}
-                                />
-                            </div>
+                        <div className="calendar-comp__dayes">
+                            <RenderCalendar
+                                calendarNumbers = {this.props.calendar.calendarNumbers}
+                                events = {this.props.calendar.events}
+                            />
                         </div>
-                    </Anim>
+                    </div>
+                    {/*<Anim animSide={this.state.animSide}>
+
+                    </Anim>*/}
 
 				</div>
 			</div>

@@ -28,7 +28,6 @@ class AddEvent extends Component {
     addEventClick () {
         const d = new Date();
         const stringArr = this.state.value.split(' ');
-        console.log(stringArr);
         d.setDate(stringArr[0])
         d.setMonth(getMonthNum(stringArr[1]))
         d.setHours(stringArr[2].split(':')[0])
@@ -46,7 +45,6 @@ class AddEvent extends Component {
             date: d,
             eventName
         }
-        console.log(new_val);
         this.props.addEventAction(new_val)
     }
     changeInput = (e) => {

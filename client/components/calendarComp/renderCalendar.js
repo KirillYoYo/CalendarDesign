@@ -31,12 +31,13 @@ class RenderCalendar extends Component {
                     this.props.calendarNumbers && this.props.calendarNumbers.map( (day, i) => {
                         const event = this.renderEvent(day.date.getMonth(), day.date.getDate())
                         return (
-                            <CalendarPopover event={event} key={i}>
+                            <CalendarPopover event={event} key={i} date={day.date}>
                                 <div
                                     className={
                                         `dayes-numbers__day ${day.active ? 'active' : ''}
                                         ${day.isNext ? 'next-month' : ''}
                                         ${day.isNext ? 'next-month' : ''}
+                                        ${day.isToday ? 'todayDay' : ''}
                                         ${event ? 'is-event' : null}`
 
                                     }

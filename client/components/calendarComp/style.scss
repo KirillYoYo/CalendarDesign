@@ -7,6 +7,10 @@
 			display: flex;
 			margin-bottom: 25px;
 
+			& > * {
+				margin-right: 10px;
+			}
+
 			.calendar-comp__left,.calendar-comp__right {
 				padding: 0px 10px;
 			}
@@ -59,6 +63,12 @@
 
 						&.is-event {
 							background: #c1e4ff;
+						}
+						&.todayDay {
+							background: #2187d6;
+						}
+						&.todayDay,.is-event {
+							background: #18629d;
 						}
 
 						//fix to be square
@@ -128,6 +138,23 @@
 		right: 6px;
 		top: 6px;
 		font-size: 14px;
+	}
+
+	.about-event {
+		.about-event__title {
+			font-size: 20px;
+			margin-bottom: 15px;
+			font-weight: 500;
+		}
+		.about-event__date  {
+			margin-bottom: 15px;
+			span {
+				margin-right: 10px;
+			}
+		}
+		.about-event__event-party__names {
+			font-size: 16px;
+		}
 	}
 }
 

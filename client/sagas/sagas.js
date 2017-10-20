@@ -32,8 +32,6 @@ export function* fetchAddEvent(action) {
 }
 
 
-
-
 function* watchTest() {
 	yield takeEvery("TEST", fetchTest);
 }

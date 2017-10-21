@@ -41,7 +41,7 @@ class CalendarPopover extends Component {
 	};
 	addEventClick = () => {
 	    const {eventName, eventDate, eventParty, eventDescription,} = this.state
-        const arr_date = eventDate.split(' ').reverse()
+		const arr_date = eventDate.split(' ').reverse()
 		const d = new Date(arr_date[0], getMonthNum(arr_date[1]), arr_date[2], 0, 0, 0, 0);
 		const new_val = {
 			date: d,
@@ -53,9 +53,18 @@ class CalendarPopover extends Component {
     }
 
 	componentDidMount() {
+		//todo need this?
 		this.setState({
 			eventDate: `${this.props.date.getDate()} ${this.props.date.getMonth()} ${this.props.date.getFullYear()}`
 		});
+	}
+
+	componentWillReceiveProps(nextProps, nextContext) {
+		if (this.props.date !== nextProps.date) {
+			this.setState({
+				eventDate: `${nextProps.date.getDate()} ${nextProps.date.getMonth()} ${nextProps.date.getFullYear()}`
+			});
+		}
 	}
 
 

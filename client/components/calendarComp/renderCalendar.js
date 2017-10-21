@@ -24,7 +24,8 @@ class RenderCalendar extends Component {
         return res
     }
 
-    render() {
+
+	render() {
         return (
             <div className={'dayes__dayes-numbers'}>
                 {

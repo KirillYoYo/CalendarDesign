@@ -8,17 +8,37 @@ class RenderCalendar extends Component {
     dayClickHandler (num, date) {
         console.log("selected day", date)
     }
-    renderEvent (month, day) {
+
+	componentDidMount() {
+        console.log('componentDidMount componentDidMount componentDidMount')
+	}
+
+	componentWillReceiveProps(nextProps, nextContext) {
+        if (this.props.events !== nextProps.events) {
+	        localStorage.setItem('eventsStorage', JSON.stringify(nextProps.events));
+        }
+	}
+
+	componentDidMount() {
+		if (localStorage.getItem('eventsStorage') && false) {
+		    // запись в store из localstorage находится в calendarPopover
+		}
+	}
+
+
+	renderEvent (month, day) {
         var res = false;
-        this.props.events.map((item, i) => {
+        var arr = this.props.events
+        if (localStorage.getItem('eventsStorage')) {
+	        arr = JSON.parse(localStorage.getItem('eventsStorage'))
+            arr.map((item, i) => {
+            	item.date = new Date(item.date)
+            })
+        }
+		arr.map((item, i) => {
 
             if (item.date.getMonth() === month && item.date.getDate() === day) {
                 res = item
-            //     res = (
-            //         <div>
-            //             <div className={'title'}>{item.eventName}</div>
-            //         </div>
-            //     )
             }
         });
         return res

@@ -7,6 +7,23 @@ const Search = Input.Search;
 
 export default class Header extends React.Component {
 
+	constructor() {
+		super();
+		this.state = {
+			visible: false,
+			searchText: null
+		}
+	}
+
+
+	changeSearch (e) {
+		console.log('changeSearch')
+		this.setState({
+			searchText: e.target.value,
+		});
+
+	};
+
 	render () {
         return(
 			<div className="header">
@@ -22,11 +39,12 @@ export default class Header extends React.Component {
 							<div className="search-clear-val">
 								<Icon type="close" />
 							</div>
-							<FindEvent>
+							<FindEvent searchText={this.state.searchText}>
 								<Search
 									placeholder="input search text"
 									style={{ width: 200 }}
 									onSearch={value => console.log(value)}
+									onChange={::this.changeSearch}
 								/>
 							</FindEvent>
 						</div>

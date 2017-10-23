@@ -21,6 +21,9 @@ export default function calendar(state = initialState, action = {}) {
             };
         case ADD_EVENT_SUCCESS:
             new_arr.push(action.payload)
+	        if (Array.isArray(action.payload)) {
+		        new_arr = action.payload
+	        }
             return {
                 ...state,
                 events: new_arr

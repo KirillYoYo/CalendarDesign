@@ -25,7 +25,6 @@ class CalendarComp extends React.Component {
     }
 
     componentDidMount() {
-        console.log('DID MOUNT')
         this.props.getCalendarNumbers();
     }
 
@@ -42,9 +41,11 @@ class CalendarComp extends React.Component {
             curMonth: this.state.curMonth -1,
             animSide: 'left'
         }, () => {
-            setTimeout(() => {
-                this.props.getCalendarNumbers(this.state.curMonth);
-            }, 200)
+	        this.props.getCalendarNumbers(this.state.curMonth);
+	        //todo setTimeout для анимации
+            // setTimeout(() => {
+            //
+            // }, 200)
         })
     }
     nextMonth () {
@@ -52,9 +53,10 @@ class CalendarComp extends React.Component {
             curMonth: this.state.curMonth +1,
             animSide: 'right'
         }, () => {
-            setTimeout(() => {
-                this.props.getCalendarNumbers(this.state.curMonth);
-            }, 200)
+	        this.props.getCalendarNumbers(this.state.curMonth);
+            // setTimeout(() => {
+            //
+            // }, 200)
         })
 
     }
@@ -76,8 +78,12 @@ class CalendarComp extends React.Component {
         })
     }
 
-    render() {
+	shouldComponentUpdate(nextProps, nextState, nextContext) {
+		return this.props.calendar.calendarNumbers === nextProps.calendar.calendarNumbers || this.props.calendar.events === nextProps.calendar.events
+	}
 
+
+	render() {
         return (
 			<div className="calendar-comp">
 				<div className="calendar">

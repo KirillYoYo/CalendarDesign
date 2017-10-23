@@ -7,6 +7,15 @@ import CalendarComp from '../components/calendarComp';
 import app from './app.scss';
 
 class App extends React.Component {
+
+	shouldComponentUpdate(nextProps, nextState, nextContext) {
+		if (nextProps.match !== this.props.match) {
+			return false
+		}
+		return true
+	}
+
+
 	render () {
 		return (
 			<div className='app-inner'>

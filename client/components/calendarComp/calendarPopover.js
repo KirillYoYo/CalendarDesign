@@ -53,6 +53,13 @@ class CalendarPopover extends Component {
     }
 
 	componentDidMount() {
+		if (localStorage.getItem('eventsStorage')) {
+			const arr = JSON.parse(localStorage.getItem('eventsStorage'))
+			arr.map((item, i) => {
+				item.date = new Date(item.date)
+			})
+			this.props.addEventAction(arr)
+		}
 		//todo need this?
 		this.setState({
 			eventDate: `${this.props.date.getDate()} ${this.props.date.getMonth()} ${this.props.date.getFullYear()}`
